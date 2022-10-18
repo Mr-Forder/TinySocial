@@ -6,6 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 export default function Nav() {
   const [user, loading] = useAuthState(auth);
   console.log(user);
+
   return (
     <nav className="flex justify-between items-center py-10">
       <Link href="/">
@@ -22,7 +23,9 @@ export default function Nav() {
         {user && (
           <div className="flex items-center gap-6">
             <Link href="/post" className="">
-              Make a Comment!
+              <button className="py-2 px-4 text-sm bg-cyan-600 text-white rounded-lg font-medium">
+                Make a Comment!
+              </button>
             </Link>
             <Link href="/dashboard">
               <img

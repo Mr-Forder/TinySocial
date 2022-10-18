@@ -1,7 +1,29 @@
 import Head from "next/head";
 import Image from "next/image";
-
+import Comment from "../components/Comment";
+import { useState, useEffect } from "react";
+import { db } from "../utils/firebase";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 export default function Home() {
+  //comment list state
+  const [allComments, setAllComments] = useState([]);
+  const getComments = async () => {
+    //target firebase db and collection
+    const collectionRef = collection(db, "posts");
+    //use firebase query to query and sort collection
+    const q = query(collectionRef, orderBy("timestamp", "desc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setAllComments(
+        snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      );
+    });
+    return unsubscribe;
+  };
+
+  useEffect(() => {
+    getComments();
+  }, []);
+
   return (
     <div>
       <Head>
@@ -10,9 +32,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>HIIII</h1>
-      </main>
+      <div className="my-12 text-lg font-medium">
+        <h2 className="text-2xl">See what people are saying...</h2>
+        {allComments.map((comment) => (
+          <Comment {...comment} />
+        ))}
+      </div>
 
       <footer></footer>
     </div>
