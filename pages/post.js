@@ -60,10 +60,10 @@ const post = () => {
               setPost({ ...post, description: e.target.value });
             }}
             value={post.description}
-            className="bg-gray-700 h-48 w-full text-white rounded-lg p-2 text-sm"
+            className="bg-gray-700 h-48 w-full text-white rounded-lg p-2 text-sm border-2"
           ></textarea>
           <p
-            className={`text-cyan-700 font-medium text-small ${
+            className={`text-cyan-400 font-medium text-small ${
               post.description.length > 300 ? "text-red-600" : ""
             }`}
           >
