@@ -4,18 +4,20 @@ import Comment from "../components/Comment";
 import { useState, useEffect } from "react";
 import { db } from "../utils/firebase";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { toast } from "react-toastify";
+import Link from "next/link";
 export default function Home() {
   //comment list state
-  const [allComments, setAllComments] = useState([]);
+  const [allPosts, setAllPosts] = useState([]);
+
+  //GET ALL POSTS
   const getComments = async () => {
     //target firebase db and collection
     const collectionRef = collection(db, "posts");
     //use firebase query to query and sort collection
     const q = query(collectionRef, orderBy("timestamp", "desc"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      setAllComments(
-        snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      );
+      setAllPosts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     });
     return unsubscribe;
   };
@@ -33,13 +35,18 @@ export default function Home() {
       </Head>
 
       <div className="my-12 text-lg font-medium">
-        <h2 className="text-2xl">See what people are saying...</h2>
-        {allComments.map((comment) => (
-          <Comment {...comment} key={comment.id} />
+        <h2 className="text-xl">See what people are saying...</h2>
+        {allPosts.map((comment) => (
+          <Comment {...comment} key={comment.id}>
+            <Link href={{ pathname: `/${comment.id}`, query: { ...comment } }}>
+              <button>
+                Comments (
+                {comment?.comments?.length > 0 ? comment.comments.length : "0"})
+              </button>
+            </Link>
+          </Comment>
         ))}
       </div>
-
-      <footer></footer>
     </div>
   );
 }

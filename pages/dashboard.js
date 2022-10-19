@@ -51,7 +51,7 @@ const dashboard = () => {
 
   return (
     <div>
-      <h1>Your Comments</h1>
+      <h2 className="text-xl">Your Posts</h2>
       <div className=" flex gap-4 my-12 text-lg font-medium items-center">
         {userComments.map((comment) => {
           return (

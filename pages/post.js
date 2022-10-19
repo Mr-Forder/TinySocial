@@ -15,7 +15,6 @@ const post = () => {
   //init router
   const route = useRouter();
   const routeData = route.query;
-  console.log(routeData);
   //form state
   const [post, setPost] = useState({
     description: "",
@@ -47,6 +46,7 @@ const post = () => {
       //then, run firebase updateDoc method, passing in the targeted firebase doc and the updated post we just created
       await updateDoc(docRef, updatedPost);
       //finally, return and take us to the index page
+      toast.success("Comment Edited!");
       return route.push("/");
     } else {
       //ELSE, JUST CREATE A NEW COMMENT
@@ -60,6 +60,7 @@ const post = () => {
       });
       //reset content
       setPost({ description: "" });
+      toast.success("Comment Created!");
       //redirect to main
       return route.push("/");
     }
