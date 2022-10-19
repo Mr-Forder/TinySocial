@@ -9,7 +9,7 @@ export default function Nav() {
   return (
     <nav className="flex justify-between items-center py-10">
       <Link href="/">
-        <button className="text-2xl font-bold">Comment.</button>
+        <button className="text-2xl font-bold mr-4">TinySocial.</button>
       </Link>
       <ul className="flex items-center gap-10">
         {!user && (
@@ -20,10 +20,10 @@ export default function Nav() {
           </Link>
         )}
         {user && (
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3">
             <Link href="/post" className="">
               <button className="py-2 px-4 text-sm bg-cyan-600 text-white rounded-lg font-medium">
-                Make a Comment!
+                Start Posting!
               </button>
             </Link>
             <Link href="/dashboard">

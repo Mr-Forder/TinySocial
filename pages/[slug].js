@@ -88,7 +88,10 @@ const slug = () => {
           <div className="py-6">
             <h2 className="font-bold">Comments</h2>
             {allMessage?.map((message) => (
-              <div className="bg-gray-900 p-4 my-4 border-2" key={message.time}>
+              <div
+                className="bg-gray-900 p-4 my-4 border-2 rounded-lg"
+                key={message.time}
+              >
                 <div className="flex items-center gap-2 mb-4">
                   <img
                     className="w-10 rounded-full"

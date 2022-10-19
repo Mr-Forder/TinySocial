@@ -58,7 +58,7 @@ const dashboard = () => {
             <Comment {...comment} key={comment.id}>
               <div className="flex">
                 <button
-                  className="flex items-center justify-center gap-2 py-2 text-sm"
+                  className="flex items-center justify-center gap-2 py-2 text-sm mx-2"
                   onClick={() => {
                     deleteComment(comment.id);
                   }}
@@ -67,7 +67,7 @@ const dashboard = () => {
                   Delete
                 </button>
                 <Link href={{ pathname: "/post", query: comment }}>
-                  <button className="flex items-center justify-center gap-2 py-2 text-sm">
+                  <button className="flex items-center justify-center gap-2 py-2 text-sm mx-2">
                     <AiFillEdit />
                     Edit
                   </button>
@@ -79,7 +79,7 @@ const dashboard = () => {
       </div>
       <button
         onClick={() => auth.signOut()}
-        className="py-2 px-4 text-sm bg-cyan-600 text-white rounded-lg font-medium ml-8"
+        className="py-2 px-4 text-sm bg-cyan-600 text-white rounded-lg font-medium "
       >
         Sign Out
       </button>

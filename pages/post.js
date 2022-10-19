@@ -28,12 +28,12 @@ const post = () => {
     //form validation checks
 
     if (!post.description.length) {
-      toast.error("Please write a comment before submitting...");
+      toast.error("Please write a message before submitting...");
       return;
     }
 
     if (!post.description.length > 300) {
-      toast.error("Comment too long!");
+      toast.error("Post is too long!");
       return;
     }
 
@@ -46,7 +46,7 @@ const post = () => {
       //then, run firebase updateDoc method, passing in the targeted firebase doc and the updated post we just created
       await updateDoc(docRef, updatedPost);
       //finally, return and take us to the index page
-      toast.success("Comment Edited!");
+      toast.success("Post Edited!");
       return route.push("/");
     } else {
       //ELSE, JUST CREATE A NEW COMMENT
@@ -60,7 +60,7 @@ const post = () => {
       });
       //reset content
       setPost({ description: "" });
-      toast.success("Comment Created!");
+      toast.success("Your message has been posted!");
       //redirect to main
       return route.push("/");
     }
@@ -85,12 +85,10 @@ const post = () => {
     <div className="my-20 p-12 shadow-lg rounded-lg max-w-md mx-auto">
       <form onSubmit={submitComment}>
         <h1 className="text-2xl font-bold">
-          {post.hasOwnProperty("id")
-            ? "Edit your comment"
-            : "Create a new comment"}
+          {post.hasOwnProperty("id") ? "Edit your comment" : "Make a new post"}
         </h1>
         <div className="py-2">
-          <h3 className="text-lg font-medium py-2">Description</h3>
+          <h3 className="text-lg font-medium py-2">Your Post:</h3>
           <textarea
             onChange={(e) => {
               setPost({ ...post, description: e.target.value });
