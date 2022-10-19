@@ -1,4 +1,5 @@
 import { auth } from "../utils/firebase";
+import Link from "next/link";
 //from react firebase hooks package
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
@@ -65,10 +66,12 @@ const dashboard = () => {
                   <BsTrash2Fill />
                   Delete
                 </button>
-                <button className="flex items-center justify-center gap-2 py-2 text-sm">
-                  <AiFillEdit />
-                  Edit
-                </button>
+                <Link href={{ pathname: "/post", query: comment }}>
+                  <button className="flex items-center justify-center gap-2 py-2 text-sm">
+                    <AiFillEdit />
+                    Edit
+                  </button>
+                </Link>
               </div>
             </Comment>
           );

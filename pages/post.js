@@ -14,6 +14,8 @@ import { toast } from "react-toastify";
 const post = () => {
   //init router
   const route = useRouter();
+  const routeData = route.query;
+  console.log(routeData);
   //form state
   const [post, setPost] = useState({
     description: "",
@@ -36,23 +38,56 @@ const post = () => {
       return;
     }
 
-    const collectionRef = collection(db, "posts");
-    await addDoc(collectionRef, {
-      ...post,
-      timestamp: serverTimestamp(),
-      user: user.uid,
-      avatar: user.photoURL,
-      username: user.displayName,
-    });
-    //reset content
-    setPost({ description: "" });
-    //redirect to main
-    return route.push("/");
+    //check to see if post aleady has an id (edit comment) or not (new comment)
+    if (post?.hasOwnProperty("id")) {
+      //target doc to be edited
+      const docRef = doc(db, "posts", post.id);
+      //create updated comment, by spreading in current post object, setting timestamp via firebase server time
+      const updatedPost = { ...post, timestamp: serverTimestamp() };
+      //then, run firebase updateDoc method, passing in the targeted firebase doc and the updated post we just created
+      await updateDoc(docRef, updatedPost);
+      //finally, return and take us to the index page
+      return route.push("/");
+    } else {
+      //ELSE, JUST CREATE A NEW COMMENT
+      const collectionRef = collection(db, "posts");
+      await addDoc(collectionRef, {
+        ...post,
+        timestamp: serverTimestamp(),
+        user: user.uid,
+        avatar: user.photoURL,
+        username: user.displayName,
+      });
+      //reset content
+      setPost({ description: "" });
+      //redirect to main
+      return route.push("/");
+    }
   };
+
+  // check user
+  const checkUser = async () => {
+    if (loading) return;
+    if (!user) {
+      route.push("/auth/login");
+    }
+    if (routeData.id) {
+      setPost({ description: routeData.description, id: routeData.id });
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, [user, loading]);
+
   return (
     <div className="my-20 p-12 shadow-lg rounded-lg max-w-md mx-auto">
       <form onSubmit={submitComment}>
-        <h1 className="text-2xl font-bold">Create a new comment</h1>
+        <h1 className="text-2xl font-bold">
+          {post.hasOwnProperty("id")
+            ? "Edit your comment"
+            : "Create a new comment"}
+        </h1>
         <div className="py-2">
           <h3 className="text-lg font-medium py-2">Description</h3>
           <textarea
