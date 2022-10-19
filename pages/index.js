@@ -35,7 +35,7 @@ export default function Home() {
       <div className="my-12 text-lg font-medium">
         <h2 className="text-2xl">See what people are saying...</h2>
         {allComments.map((comment) => (
-          <Comment {...comment} />
+          <Comment {...comment} key={comment.id} />
         ))}
       </div>
 
