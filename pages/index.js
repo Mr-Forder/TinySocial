@@ -39,7 +39,7 @@ export default function Home() {
         {allPosts.map((comment) => (
           <Comment {...comment} key={comment.id}>
             <Link href={{ pathname: `/${comment.id}`, query: { ...comment } }}>
-              <button>
+              <button className="text-xs">
                 Comments (
                 {comment?.comments?.length > 0 ? comment.comments.length : "0"})
               </button>
