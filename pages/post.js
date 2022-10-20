@@ -11,7 +11,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
-const post = () => {
+const Post = () => {
   //init router
   const route = useRouter();
   const routeData = route.query;
@@ -115,4 +115,4 @@ const post = () => {
   );
 };
 
-export default post;
+export default Post;

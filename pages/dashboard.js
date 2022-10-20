@@ -16,7 +16,7 @@ import {
 import Comment from "../components/Comment";
 import { BsTrash2Fill } from "react-icons/bs";
 import { AiFillEdit } from "react-icons/ai";
-const dashboard = () => {
+const Dashboard = () => {
   //init router
   const route = useRouter();
   const [user, loading] = useAuthState(auth);
@@ -87,4 +87,4 @@ const dashboard = () => {
   );
 };
 
-export default dashboard;
+export default Dashboard;

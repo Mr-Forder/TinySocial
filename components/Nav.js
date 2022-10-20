@@ -26,7 +26,7 @@ export default function Nav() {
                 Start Posting!
               </button>
             </Link>
-            <Link href="/dashboard">
+            <Link href="/Dashboard">
               <button className="py-2 px-4 text-sm bg-pink-600 text-white rounded-lg font-medium">
                 My Dashboard
               </button>
