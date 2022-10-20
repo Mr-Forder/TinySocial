@@ -13,7 +13,7 @@ import {
   updateDoc,
   getDoc,
 } from "firebase/firestore";
-const slug = () => {
+const Slug = () => {
   //init router
   const router = useRouter();
   //grab data from router query object (passed down from index page, in Link component)
@@ -110,4 +110,4 @@ const slug = () => {
   );
 };
 
-export default slug;
+export default Slug;
